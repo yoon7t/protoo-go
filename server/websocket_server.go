@@ -4,9 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cloudwebrtc/go-protoo/logger"
-	"github.com/cloudwebrtc/go-protoo/transport"
 	"github.com/gorilla/websocket"
+	"github.com/yoon7t/protoo-go/transport"
 )
 
 type WebSocketServerConfig struct {
@@ -64,10 +63,10 @@ func (server *WebSocketServer) Bind(cfg WebSocketServerConfig) {
 	http.Handle("/", http.FileServer(http.Dir(cfg.HTMLRoot)))
 
 	if cfg.CertFile == "" || cfg.KeyFile == "" {
-		logger.Infof("non-TLS WebSocketServer listening on: %s:%d", cfg.Host, cfg.Port)
+		//logger.Infof("non-TLS WebSocketServer listening on: %s:%d", cfg.Host, cfg.Port)
 		panic(http.ListenAndServe(cfg.Host+":"+strconv.Itoa(cfg.Port), nil))
 	} else {
-		logger.Infof("TLS WebSocketServer listening on: %s:%d", cfg.Host, cfg.Port)
+		//logger.Infof("TLS WebSocketServer listening on: %s:%d", cfg.Host, cfg.Port)
 		panic(http.ListenAndServeTLS(cfg.Host+":"+strconv.Itoa(cfg.Port), cfg.CertFile, cfg.KeyFile, nil))
 	}
 }
